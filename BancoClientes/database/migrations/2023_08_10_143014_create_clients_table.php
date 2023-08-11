@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('mail')->unique();
             $table->string('image_path');
-            $table->string('phone')->unique();
+            $table->string('phone');
             $table->unsignedBigInteger('client_type_id'); //refere-se ao tipo de usuário (pessoa física ou jurídica)
             $table->timestamps();
         });
