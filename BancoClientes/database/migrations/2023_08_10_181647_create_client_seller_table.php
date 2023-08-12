@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('seller_id');
+            
+            $table->unique(['client_id', 'seller_id']);
+            
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

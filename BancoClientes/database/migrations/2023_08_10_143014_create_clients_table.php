@@ -11,13 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('person_type', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->timestamps();
+        });
+
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('mail')->unique();
-            $table->string('image_path');
-            $table->string('phone');
-            $table->unsignedBigInteger('client_type_id'); //refere-se ao tipo de usuário (pessoa física ou jurídica)
+            $table->string('image_path')->default('https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg');
+            $table->unsignedBigInteger('person_type_id')->default(1); //chave estrangeira refere-se ao tipo de client (pessoa física ou jurídica)
+            $table->foreign('person_type_id')->references('id')->on('person_type')->onDelete('cascade');
             $table->timestamps();
         });
     }
