@@ -12,17 +12,25 @@ class Client extends Model
 {
     use HasFactory;
 
-    public function clientType(): BelongsTo
+    protected $fillable = [
+        'name',
+        'mail',
+        'image_path',
+        'person_type_id'
+    ];
+
+
+    public function clientType()
     {
         return $this->belongsTo(ClientType::class);
     }
 
-    public function sellers(): BelongsToMany
+    public function sellers()
     {
-        return $this->belongsToMany(Seller::class)->using(Client::class);
+        return $this->belongsToMany(Seller::class);
     }
 
-    public function phones(): HasMany
+    public function phones()
     {
         return $this->hasMany(Phone::class);
     }
