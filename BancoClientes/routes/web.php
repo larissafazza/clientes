@@ -16,4 +16,5 @@ use App\Http\Controllers\ClientController;
 
 
 Route::get('/', [ProductContoller::class, 'index']);
-Route::resource('products', ProductContoller::class);
+Route::resource('clients', ProductContoller::class);
+Route::resource('sellers', ProductContoller::class);
