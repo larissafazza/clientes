@@ -30,8 +30,13 @@
                         <ion-icon name="eye" class="eye-btn"></ion-icon> </a></button>
                     <button title="Editar" class="btn btn-edit"><a href="{{ route('clients.edit', ['client' => $client->id]) }}">
                         <ion-icon name="create" class="edit-btn"></ion-icon></a></button>
-                    <button title="Deletar" class=" btn btn-delete"><a href="{{ route('clients.destroy', ['client' => $client->id]) }}">
-                        <ion-icon name="trash" class="trash-btn"></ion-icon></button>
+                        <button title="Deletar" class="btn btn-delete" onclick="event.preventDefault(); if (confirm('Tem certeza que deseja deletar?')) document.getElementById('delete-form-{{ $client->id }}').submit();">
+                        <ion-icon name="trash" class="trash-btn"></ion-icon>
+                    </button>
+                    <form id="delete-form-{{ $client->id }}" action="{{ route('clients.destroy', ['client' => $client->id]) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </td>
             </tr>
         @endforeach

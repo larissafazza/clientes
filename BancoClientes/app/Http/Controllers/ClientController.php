@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Http\Controllers\Controller;
+use App\Models\Phone;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 
@@ -33,17 +34,42 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'mail' => 'required',
-            'image_path'=> 'required',
-            'person_type_id' => 'required'
+
+        $data = $request->validate([
+            'name' => 'required|string',
+            'mail' => 'required|email',
+            'person_type_id' => 'required|integer',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'sellers' => 'array', 
+            'sellers.*' => 'integer', 
+            'phones' => 'array', 
+            'phones.*' => 'string', 
         ]);
+        
+        
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('public/images'); // Salva a imagem em storage/app/public/images
+            $data['image_path'] = $photoPath;
+        }
     
-        Client::create($request->all());
-     
-        return redirect()->route('clients.index')
-                        ->with('success','Client created successfully.');
+        $client = Client::create($data);
+
+        if (!empty($data['phones'])) {
+            foreach ($data['phones'] as $phoneNumber) {
+                Phone::create([
+                    'number' => $phoneNumber,
+                    'client_id' => $client->id,
+                ]);
+            }
+        }
+
+        if (!empty($data['sellers'])) {
+            $client->sellers()->attach($data['sellers']);
+        }
+
+        
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -51,7 +77,8 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        return view('clients.show',compact('client'));
+        $sellers = Seller::all();
+        return view('clients.show',compact('client', 'sellers'));
     }
 
     /**
@@ -59,26 +86,43 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        return view('clients.edit',compact('client'));
+        $sellers = Seller::all();
+        return view('clients.edit',compact('client', 'sellers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Client $client)
-    {
-        $request->validate([
-            'name' => 'required',
-            'mail' => 'required',
-            'image_path'=> 'required',
-            'person_type_id' => 'required'
-        ]);
-    
-        $client->update($request->all());
-    
-        return redirect()->route('clients.index')
-                        ->with('success','Client updated successfully');
-    }
+        public function update(Request $request, Client $client)
+        {
+            $data = $request->validate([
+                'name' => 'required|string',
+                'mail' => 'required|email',
+                'person_type_id' => 'required|integer',
+                'sellers' => 'array', 
+                'sellers.*' => 'integer', 
+                'phones' => 'array', 
+                'phones.*' => 'string', 
+            ]);
+        
+            $client->update($data);
+        
+            $client->phones()->delete(); // Deleta os telefones existentes
+            if (!empty($data['phones'])) {
+                foreach ($data['phones'] as $phoneNumber) {
+                    Phone::create([
+                        'number' => $phoneNumber,
+                        'client_id' => $client->id,
+                    ]);
+                }
+            }
+        
+            if (!empty($data['sellers'])) {
+                $client->sellers()->sync($data['sellers']); // Usar sync para sincronizar os vendedores existentes
+            }
+        
+            return redirect()->route('clients.index');
+        }
 
     /**
      * Remove the specified resource from storage.

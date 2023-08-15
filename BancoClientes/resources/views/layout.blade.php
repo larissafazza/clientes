@@ -44,14 +44,3 @@
         @yield('content')
     </body>
 </html>
-
-<script>
-
-function newPhoneInput(){
-
-  var newInput = document.createElement('input');
-  newInput.type = 'text';
-  newInput.name = 'newphone';
-}
-
-</script>
