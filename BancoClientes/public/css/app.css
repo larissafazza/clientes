@@ -28,3 +28,9 @@ body{
 .form{
     margin-top:72px;
 }
+.btn-outline-secondary{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-right: 12px;
+    float: right;
+}

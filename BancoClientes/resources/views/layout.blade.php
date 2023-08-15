@@ -22,8 +22,6 @@
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
       <link href="{{ asset('css/clients.css') }}" rel="stylesheet">
       <link href="{{ asset('css/sellers.css') }}" rel="stylesheet">
-
-        
     </head>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -33,10 +31,10 @@
                 <a class="nav-link disabled" aria-disabled="true">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Clients</a>
+              <a class="nav-link active" aria-current="page" href="{{ route('clients.index') }}">Clients</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sellers</a>
+              <a class="nav-link" href="{{ route('sellers.index') }}">Sellers</a>
             </li>
           </ul>
         </div>
@@ -50,7 +48,7 @@
 <script>
 
 function newPhoneInput(){
-  
+
   var newInput = document.createElement('input');
   newInput.type = 'text';
   newInput.name = 'newphone';
