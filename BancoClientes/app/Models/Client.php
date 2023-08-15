@@ -20,9 +20,9 @@ class Client extends Model
     ];
 
 
-    public function clientType()
+    public function personType()
     {
-        return $this->belongsTo(ClientType::class);
+        return $this->belongsTo(PersonType::class);
     }
 
     public function sellers()
