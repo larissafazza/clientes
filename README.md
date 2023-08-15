@@ -22,7 +22,8 @@ Composer
 5. Ainda no terminal, gere uma application key com o comando: php artisan key:generate;
 6. Configure o arquivo .env com as configurações do banco de dados local;
 7. No terminal, execute as migrations com o comando: php artisan migrate --seed (a flag --seed serve para rodar o seeder do laravel. Neste projeto, foi usado para gerar vendedores e clientes para testes automatizados do sistema, além de criar os tipos de pessoas do sistema (pessoa física e pessoa jurídica);
-8. Por fim, para executar o projeto, use o comando: php artisan serve e acesse a url indicada no terminal.
+8. Para executar o projeto, use o comando: php artisan serve e acesse a url indicada no terminal.
+9. Isso feito, o projeto abrirá em uma tela de login, onde um usuário é gerado automaticamente pelo sistema, e suas credenciais devem ser inseridas para acessar o sistema. (São elas: email => 'admin@gmail.com', senha => 'password')
 
 #### Desenvolvimento 
 
