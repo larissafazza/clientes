@@ -13,7 +13,7 @@ class PersonTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('person_type')->insert([
+        DB::table('person_types')->insert([
             [
                 'type' => 'Pessoa Física',
             ],
