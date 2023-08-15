@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SellerController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,6 @@ use App\Http\Controllers\ClientController;
 */
 
 
-Route::get('/', [ProductContoller::class, 'index']);
-Route::resource('clients', ProductContoller::class);
-Route::resource('sellers', ProductContoller::class);
+//Route::get('/', [ProductContoller::class, 'index']);
+Route::resource('clients', ClientController::class);
+Route::resource('sellers', SellerController::class);

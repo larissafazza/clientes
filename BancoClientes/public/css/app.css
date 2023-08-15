@@ -1,0 +1,30 @@
+body{
+    background-color: #FAFAFA;
+    font-size: 16px;
+}
+.table{
+    margin-top: 20px;
+}
+.nav-link{
+    color:white!important;
+    font-weight: bold;
+}
+.bg-body-tertiary{
+    background-color: #4c61a6!important;
+}
+.eye-btn{
+    color: green;
+}
+.trash-btn{
+    color:red;
+}
+.edit-btn{
+    color:orange;
+}
+.body-container{
+    padding-left: 56px;
+    padding-right: 56px;
+}
+.form{
+    margin-top:72px;
+}
