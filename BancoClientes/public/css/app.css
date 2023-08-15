@@ -34,3 +34,13 @@ body{
     margin-right: 12px;
     float: right;
 }
+.btn-outline-primary{
+    margin-top: 20px;
+    width: 100%;
+}
+.disabled{
+    color:#98a6d6!important;
+}
+.nav-link:hover{
+    color:#3bc2eb!important;
+}

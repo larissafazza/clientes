@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-//Route::get('/', [ProductContoller::class, 'index']);
+Route::get('/', [UserController::class, 'login'])->name('users.login');
+Route::post('/auth', [UserController::class, 'auth'])->name('users.auth');
+
 Route::resource('clients', ClientController::class);
 Route::resource('sellers', SellerController::class);

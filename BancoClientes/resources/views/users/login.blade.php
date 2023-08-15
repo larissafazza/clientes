@@ -28,19 +28,46 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Login</a>
+                <a class="nav-link" aria-disabled="true">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{ route('clients.index') }}">Clients</a>
+              <a class="nav-link disabled" aria-current="page" href="{{ route('clients.index') }}">Clients</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('sellers.index') }}">Sellers</a>
+              <a class="nav-link disabled" href="{{ route('sellers.index') }}">Sellers</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
     <body>
-        @yield('content')
+    <div class="body-container">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if(session('danger'))
+      <div class="alert alert-danger">
+        {{ session('danger') }}
+      </div>
+    @endif
+    <form class="form" action="{{ route('users.auth') }}" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" name="email" aria-describedby="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" name="password" aria-describedby="password" required>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Login</button>
+    </form>
+</div>
     </body>
 </html>
